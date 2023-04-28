@@ -9,7 +9,7 @@ import logging
 
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
-    """Obfuscates a string"""
+    """Obfuscates a selected fieldsnin a string"""
     for field in fields:
         message = re.sub(f"{field}=.*?{seperator}",
                          f"{field}={redaction}{separator}", message)
