@@ -7,12 +7,12 @@ import re
 import logging
 
 
-def filter_datum(fields: List[str], redaction: str, message: str,
-                 seperator: str) -> str:
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator: str) -> str:
     """Obfuscates a string"""
     for field in fields:
         message = re.sub(f"{field}=.*?{seperator}",
-                         f"{field}={redaction}{seperator}", message)
+                         f"{field}={redaction}{separator}", message)
     return message
 
 
@@ -34,3 +34,8 @@ class RedactingFormatter(logging.Formatter):
         record.msg = filter_datum(self.fields, self.REDACTION,
                                   message, self.SEPARATOR)
         return super().format(record)
+
+
+def get_logger() -> logging.Logger:
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
