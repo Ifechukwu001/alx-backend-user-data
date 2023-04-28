@@ -9,7 +9,7 @@ import logging
 
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
-    """Obfuscates a selected fieldsnin a string
+    """Obfuscates a selected fields in a string
     """
     for field in fields:
         message = re.sub(f"{field}=.*?{seperator}",
@@ -25,7 +25,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: List[str]) -> None:
+    def __init__(self, fields: List[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
