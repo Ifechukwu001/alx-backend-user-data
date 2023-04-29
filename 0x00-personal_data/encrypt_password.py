@@ -1,4 +1,4 @@
-#!/usr/bin/env pythpn3
+#!/usr/bin/env python3
 """Encryptions and Passwords :)"""
 import bcrypt
 
