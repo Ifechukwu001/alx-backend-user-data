@@ -37,7 +37,7 @@ class RedactingFormatter(logging.Formatter):
         """Returns an obfuscated version of the log record"""
         message = super().format(record)
         redacted = filter_datum(self.fields, self.REDACTION,
-                                  message, self.SEPARATOR)
+                                message, self.SEPARATOR)
         return redacted
 
 
@@ -84,7 +84,7 @@ def main():
         log.info(f"name={name}; email={email}; phone={phone}; ssn={ssn};"
                  f" password={password}; ip={ip}; last_login={last_login};"
                  f" user_agent={user_agent};"
-                )
+                 )
 
 
 if __name__ == "__main__":
