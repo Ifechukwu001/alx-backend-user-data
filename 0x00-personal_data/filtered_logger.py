@@ -68,5 +68,24 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                             password=password,
                                             host=host,
                                             database=database
-                                            )
+                                        )
     return connection
+
+
+def main():
+    """Entry point of the function"""
+    connection = get_db()
+    cursor = connection.cursor()
+    log = get_logger()
+
+    quer = cursor.execute("SELECT * FROM users;")
+
+    for name, email, phone, ssn, password, ip, last_login, user_agent in quer:
+        log.info(f"name={name}; email={email}; phone={phone}; ssn={ssn};"
+                 f" password={password}; ip={ip}; last_login={last_login};"
+                 f" user_agent={user_agent};"
+                )
+
+
+if __name__ == "__main__":
+    main()
