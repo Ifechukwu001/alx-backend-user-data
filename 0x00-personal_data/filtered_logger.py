@@ -41,6 +41,7 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger() -> logging.Logger:
     logger = logging.getLogger("user_data")
+    logger.propagate = False
     logger.setLevel(logging.INFO)
 
     formatter = RedactingFormatter(PII_FIELDS)
