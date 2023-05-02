@@ -14,15 +14,23 @@ class Auth:
         Returns:
             bool: False
         """
+        if not path:
+            return True
+        if type(path) == str and not path.endswith("/"):
+            path += "/"
+        if not excluded_paths:
+            return True
+        if path not in excluded_paths:
+            return True
         return False
-    
+
     def authorization_header(self, request=None) -> str:
         """authorization_header method
         Returns:
             str: None
         """
         return None
-    
+
     def current_user(self, request=None) -> TypeVar('User'):
         """current_user method
         Returns:
