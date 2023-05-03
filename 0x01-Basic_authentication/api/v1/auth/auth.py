@@ -22,8 +22,10 @@ class Auth:
         if not excluded_paths:
             return True
         if len(list(filter(lambda x: "*" in x, excluded_paths))):
-            patterns = [ re.compile(ex_path[:-2]+"."+ex_path[-2:]) for ex_path in excluded_paths ]
-            r_search = [ pattern.match(path).string for pattern in patterns if pattern.match(path)]
+            patterns = [re.compile(ex_path[:-2]+"."+ex_path[-2:])
+                        for ex_path in excluded_paths]
+            r_search = [pattern.match(path).string for pattern in patterns
+                        if pattern.match(path)]
             if not len(r_search):
                 return True
             else:
