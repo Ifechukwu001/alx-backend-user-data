@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Module containing the Flask app
 """
-from flask import Flask, jsonify, request, make_response, abort
+from flask import Flask, jsonify, request
+from flask import make_response, abort, url_for, redirect
 from auth import Auth
 
 AUTH = Auth()
@@ -35,11 +36,24 @@ def login():
     password = request.form.get("password")
     if AUTH.valid_login(email, password):
         session_id = AUTH.create_session(email)
-        response = make_response(jsonify({"email": email, "message": "logged in"}))
+        response = make_response(jsonify({"email": email,
+                                          "message": "logged in"}))
         response.set_cookie("session_id", session_id)
         return response
     else:
         abort(401)
+
+
+@app.route("/sessions", methods=["DELETE"], strict_slashes=False)
+def logout():
+    """Logout a session"""
+    session_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(session_id)
+    if user:
+        AUTH.destroy_session(user.id)
+        return redirect(url_for("home"))
+    else:
+        abort(403)
 
 
 if __name__ == "__main__":
